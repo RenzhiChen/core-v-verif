@@ -490,13 +490,13 @@ testbench_verilator: CV_CORE_pkg $(TBSRC_VERI) $(TBSRC_PKG)
 	@echo "$(BANNER)"
 	$(VERILATOR) --cc --sv --exe \
 		$(VERI_TRACE) \
-		--Wno-lint --Wno-UNOPTFLAT \
+		--Wno-MULTIDRIVEN --Wno-COMBDLY --Wno-lint --Wno-UNOPTFLAT \
 		--Wno-MODDUP --top-module \
 		tb_top_verilator $(TBSRC_VERI) \
 		-f $(CV_CORE_MANIFEST) \
 		$(CV_CORE_PKG)/bhv/$(CV_CORE_LC)_core_log.sv \
 		$(TBSRC_CORE)/tb_top_verilator.cpp --Mdir $(VERI_OBJ_DIR) \
-		-CFLAGS "-std=gnu++11 $(VERI_CFLAGS)" \
+		-CFLAGS "-std=gnu++14 $(VERI_CFLAGS)" \
 		$(VERI_COMPILE_FLAGS)
 	$(MAKE) -C $(VERI_OBJ_DIR) -f Vtb_top_verilator.mk
 	mkdir -p $(SIM_RESULTS)
